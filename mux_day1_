@@ -1,0 +1,28 @@
+ RTL
+module mux4to1 (
+    input wire [1:0] sel, 
+    input wire [3:0] data,   
+    output wire y);
+assign y = (sel == 2'b00) ? data[0] :
+           (sel == 2'b01) ? data[1] :
+           (sel == 2'b10) ? data[2] :
+           data[3];
+endmodule
+
+TB 
+module tb_mux4to1;
+    reg [1:0] sel;
+    reg [3:0] data;
+    wire y;
+    mux4to1 uut (
+        .sel(sel),
+        .data(data),
+        .y(y));
+    initial begin
+        data = 4'b1010;  
+        sel = 2'b00; #10;
+        sel = 2'b01; #10;
+        sel = 2'b10; #10;
+        sel = 2'b11; #10; 
+    end
+endmodule
